@@ -1,20 +1,3 @@
-<?php
-
-include 'db.php';
-$ip = $_SERVER['REMOTE_ADDR'];
-$user_agent = $_SERVER['HTTP_USER_AGENT'];
-$path = $_SERVER['REQUEST_URI'];
-
-
-$geo = json_decode(file_get_contents("http://ip-api.com/json/$ip"));
-$country = $geo->country ?? '';
-$city = $geo->city ?? '';
-
-
-$stmt = $pdo->prepare("INSERT INTO pageviews (path, ip, country, city, user_agent) VALUES (?, ?, ?, ?, ?)");
-$stmt->execute([$path, $ip, $country, $city, $user_agent]);
-?>
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -292,4 +275,5 @@ $stmt->execute([$path, $ip, $country, $city, $user_agent]);
         });
     </script>
 </body>
+
 </html>
